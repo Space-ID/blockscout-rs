@@ -38,7 +38,7 @@ default_context:
   base_tld: '.ll'
   # basically this value should be namehash(ll), 
   # however lightlink procol uses another approach, so tld hash is nodehash(ll.<chain_indentifier>)
-  # because base's owner and tld are same, so base tld hash are same.
+  # because tld's owner and tld name are same, so base tld hash are same.
   #  function tldIdentifier(
   #      string calldata tldName,
   #      address owner
