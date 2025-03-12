@@ -89,6 +89,11 @@
         "subgraph_path": "../subgraphs/story-subgraph",
         "subgraph_name": "story-subgraph",
         "network": "story-mainnet"
+    },
+    "arb": {
+      "subgraph_path": "../subgraphs/arb-subgraph",
+      "subgraph_name": "arb-subgraph",
+      "network": "arb-mainnet"
     }
   }
 }

@@ -1,0 +1,38 @@
+{
+  "arb-mainnet": {
+    "Registry": {
+      "address": "0x4a067ee58e73ac5e4a43722e008dfdf65b2bf348",
+      "startBlock": 178626041
+    },
+    "Resolver": {
+      "startBlock": 178626041
+    },
+    "RegistrarController": {
+      "address": "0xf2198dfdcecfb67e6028ac64d0890f2a99bb6975",
+      "startBlock": 178626041
+    },
+    "Base": {
+      "address": "0x5d482d501b369f5ba034dec5c5fb7a50d2d6ca20",
+      "startBlock": 178626041
+    },
+    "": ""
+  },
+  "arb-sepolia": {
+    "Registry": {
+      "address": "",
+      "startBlock": 0
+    },
+    "Resolver": {
+      "startBlock": 0
+    },
+    "RegistrarController": {
+      "address": "",
+      "startBlock": 0
+    },
+    "Base": {
+      "address": "",
+      "startBlock": 0
+    },
+    "": ""
+  }
+}

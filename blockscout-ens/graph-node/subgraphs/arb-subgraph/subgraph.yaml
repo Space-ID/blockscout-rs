@@ -1,28 +1,28 @@
 specVersion: 0.0.4
-description: Subgraph to index Zeta Subgraph
-repository: https://github.com/blockscout/blokcscout-rs
+description: Subgraph to index Arb Subgraph
+repository: https://github.com/blockscout/blockscout-rs
 schema:
-  file: schema.graphql
+  file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: Registry
-    network: zeta
+    network: arb-mainnet
     source:
       abi: Registry
-      address: "0x5dC881dDA4e4a8d312be3544AD13118D1a04Cb17"
-      startBlock: 2341839
+      address: "0x4a067ee58e73ac5e4a43722e008dfdf65b2bf348"
+      startBlock: 178626041
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
       language: wasm/assemblyscript
-      file: Registry/Registry.wasm
+      file: ./src/Registry.ts
       entities:
         - Domain
         - Account
         - Resolver
       abis:
         - name: Registry
-          file: Registry/abis/Registry.json
+          file: ./abis/Registry.json
       eventHandlers:
         - event: Transfer(indexed bytes32,address)
           handler: handleTransfer
@@ -32,17 +32,19 @@ dataSources:
           handler: handleNewResolver
         - event: NewTTL(indexed bytes32,uint64)
           handler: handleNewTTL
+  
+  
   - kind: ethereum/contract
     name: Resolver
-    network: zeta
+    network: arb-mainnet
     source:
       abi: Resolver
-      startBlock: 2342062
+      startBlock: 178626041
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
       language: wasm/assemblyscript
-      file: Resolver/Resolver.wasm
+      file: ./src/Resolver.ts
       entities:
         - AddrChanged
         - MulticoinAddrChanged
@@ -52,9 +54,10 @@ dataSources:
         - Textchanged
         - ContenthashChanged
         - InterfaceChanged
+        - AuthorisationChanged
       abis:
         - name: Resolver
-          file: Resolver/abis/Resolver.json
+          file: ./abis/Resolver.json
       eventHandlers:
         - event: ABIChanged(indexed bytes32,indexed uint256)
           handler: handleABIChanged
@@ -62,6 +65,8 @@ dataSources:
           handler: handleAddrChanged
         - event: AddressChanged(indexed bytes32,uint256,bytes)
           handler: handleMulticoinAddrChanged
+        - event: AuthorisationChanged(indexed bytes32,indexed address,indexed address,bool)
+          handler: handleAuthorisationChanged
         - event: ContenthashChanged(indexed bytes32,bytes)
           handler: handleContentHashChanged
         - event: InterfaceChanged(indexed bytes32,indexed bytes4,address)
@@ -70,20 +75,24 @@ dataSources:
           handler: handleNameChanged
         - event: PubkeyChanged(indexed bytes32,bytes32,bytes32)
           handler: handlePubkeyChanged
-        - event: TextChanged(indexed bytes32,indexed string,string,string)
+        - event: TextChanged(indexed bytes32,indexed string,string)
           handler: handleTextChanged
+        - event: TextChanged(indexed bytes32,indexed string,string,string)
+          handler: handleTextChangedWithValue
+        - event: VersionChanged(indexed bytes32,uint64)
+          handler: handleVersionChanged
   - kind: ethereum/contract
     name: Base
-    network: zeta
+    network: arb-mainnet
     source:
       abi: Base
-      address: "0xfcd0df2d5b1023c3ce210bed17c3bcf40d4ed5cd"
-      startBlock: 2358728
+      address: "0x5d482d501b369f5ba034dec5c5fb7a50d2d6ca20"
+      startBlock: 178626041
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
       language: wasm/assemblyscript
-      file: Base/Base.wasm
+      file: ./src/Base.ts
       entities:
         - Registration
         - NameRegistered
@@ -91,7 +100,7 @@ dataSources:
         - NameTransferred
       abis:
         - name: Base
-          file: Base/abis/Base.json
+          file: ./abis/Base.json
       eventHandlers:
         - event: NameRegistered(indexed uint256,indexed address,uint256)
           handler: handleNameRegistered
@@ -99,25 +108,26 @@ dataSources:
           handler: handleNameRenewed
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleNameTransferred
+    
   - kind: ethereum/contract
     name: RegistrarController
-    network: zeta
+    network: arb-mainnet
     source:
       abi: RegistrarController
-      address: "0xD7b837A0E388B4c25200983bdAa3EF3A83ca86b7"
-      startBlock: 2341951
+      address: "0xf2198dfdcecfb67e6028ac64d0890f2a99bb6975"
+      startBlock: 178626041
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
       language: wasm/assemblyscript
-      file: RegistrarController/RegistrarController.wasm
+      file: ./src/RegistrarController.ts
       entities:
         - Registration
       abis:
         - name: RegistrarController
-          file: RegistrarController/abis/RegistrarController.json
+          file: ./abis/RegistrarController.json
       eventHandlers:
-        - event: NameRegistered(uint256,string,indexed bytes32,indexed address,uint256,uint256)
+        - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256,uint256)
           handler: handleNameRegisteredByController
-        - event: NameRenewed(uint256,string,indexed bytes32,uint256,uint256)
+        - event: NameRenewed(string,indexed bytes32,uint256,uint256)
           handler: handleNameRenewedByController

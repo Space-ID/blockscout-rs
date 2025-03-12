@@ -68,3 +68,8 @@ provider = [
 ]
 shard = "primary"
 
+[chains.arb-mainnet]
+provider = [
+    { label = "arb-mainnet", url = "https://open-platform.nodereal.io/ec7310fa4ec44eb6b3e4efeffc79a3cb/arbitrum-nitro", features = [] }
+]
+shard = "primary"
